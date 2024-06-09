@@ -1,0 +1,15 @@
+# DataSource settings
+spring.datasource.url=<db-url>
+spring.datasource.username=<db-username>
+spring.datasource.password=<db-password>
+
+# Hibernate settings (please check and edit below variables accordingly!)
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate,dialect = org.hibernate.dialect.PostgreSQLDialect
+
+# Spring Security form login details
+spring.security.user.name=<username>
+spring.security.user.password=<password>
+
+# JWT || Use this cmd (if you have node installed) to create a random secret 256 bit!! => `node -e "console.log(require('crypto').randomBytes(256).toString('hex'))")`
+jwt.secret=<secret-256bit-string>
