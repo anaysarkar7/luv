@@ -3,8 +3,8 @@ package com.luv.util.exception;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class AuthException extends Exception {
-    public AuthException(String message) {
+public class UrlShortenerException extends Exception {
+    public UrlShortenerException(String message) {
         super(message);
     }
 }

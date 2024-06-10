@@ -14,8 +14,8 @@
 	<groupId>com.luv</groupId>
 	<artifactId>urlshortener</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>urlshortener</name>
-	<description>This is the server side of LUV : An URL Shortener </description>
+	<name>luv</name>
+	<description>This is the server side of luv</description>
 
 	<properties>
 		<java.version>17</java.version>
@@ -102,9 +102,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<image>
-						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
-					</image>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

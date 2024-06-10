@@ -10,8 +10,6 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 public class ShortenUrlResponse {
-    private String name;
     private String longUrl;
     private String shortUrlId;
-    private Date createdAt;
 }

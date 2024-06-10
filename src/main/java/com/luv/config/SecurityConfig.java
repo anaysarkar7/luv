@@ -1,7 +1,7 @@
 package com.luv.config;
 
-import com.luv.util.constant.AuthConstants;
 import com.luv.config.security.JwtAuthenticationFilter;
+import com.luv.util.constant.AuthConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +30,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        log.info("Security filter chain call");
+        log.info("Applying security filter chain config.");
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((req) ->
@@ -46,7 +46,9 @@ public class SecurityConfig {
                         logout
                                 .logoutUrl(LOGOUT_ENDPOINT)
                                 .addLogoutHandler(logoutHandler)
-                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
+                                .logoutSuccessHandler(
+                                        (request, response, authentication) -> SecurityContextHolder.clearContext()
+                                )
                 )
         ;
 

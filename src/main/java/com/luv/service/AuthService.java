@@ -1,4 +1,4 @@
-package com.luv.service.auth;
+package com.luv.service;
 
 import com.luv.config.security.JwtService;
 import com.luv.dao.request.LoginRequest;
@@ -7,9 +7,8 @@ import com.luv.dao.response.LoginResponse;
 import com.luv.dao.response.SignUpResponse;
 import com.luv.model.User;
 import com.luv.repository.UserRepository;
-import com.luv.service.UserService;
 import com.luv.util.enums.Role;
-import com.luv.util.exception.AuthException;
+import com.luv.util.exception.UrlShortenerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -26,35 +25,34 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
-    public LoginResponse login(LoginRequest loginRequest) throws AuthException {
+    public LoginResponse login(LoginRequest loginRequest) throws UrlShortenerException {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(),
-                        loginRequest.getPassword()
+                        loginRequest.getRawPassword()
                 )
         );
         if (userService.isUserPresent(loginRequest.getEmail())) {
             User user = userService.getUser(loginRequest.getEmail());
-            if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            if (passwordEncoder.matches(loginRequest.getRawPassword(), user.getPassword())) {
                 String accessToken = jwtService.generateToken(user);
                 return LoginResponse.builder()
                         .accessToken(accessToken)
                         .refreshToken("TODO")// TODO: Implement Refresh Token
                         .build();
             } else throw new BadCredentialsException("Incorrect Password!");
-        } else throw new AuthException();
+        } else throw new UrlShortenerException();
     }
 
-    //TODO: Generate token during signup for direct login
     //TODO: Check SQL relation warning log
-    public SignUpResponse signUp(SignUpRequest signUpRequest) throws AuthException {
+    public SignUpResponse signUp(SignUpRequest signUpRequest) throws UrlShortenerException {
         if (!userService.isUserPresent(signUpRequest.getEmail())) {
             User newUser = User.builder()
-                    .role(Role.USER)// TODO: Default role set as USER during signup
+                    .role(Role.USER)
                     .email(signUpRequest.getEmail())
                     .password(passwordEncoder.encode(signUpRequest.getRawPassword()))
-                    .firstname(signUpRequest.getFirstname())
-                    .lastname(signUpRequest.getLastname())
+                    .firstname(signUpRequest.getFirstName())
+                    .lastname(signUpRequest.getLastName())
                     .build();
 
             User createdUser = userRepository.save(newUser);
@@ -62,7 +60,7 @@ public class AuthService {
                     .userId(createdUser.getUserId())
                     .build();
         } else {
-            throw new AuthException("User with email: " + signUpRequest.getEmail() + " is already present!");
+            throw new UrlShortenerException("User with email: " + signUpRequest.getEmail() + " is already present!");
         }
     }
 }

@@ -5,8 +5,8 @@ import static com.luv.util.constant.MiscellaneousConstants.API_VERSION;
 public class AuthConstants {
     public static final String[] AUTH_IGNORED_PATHS = {
             API_VERSION + "/auth/login",
-            API_VERSION + "/auth/signup"
-
+            API_VERSION + "/auth/signup",
+            "/123"
     };
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String BEARER_PREFIX = "Bearer ";//Also contains the space b/w Bearer & token

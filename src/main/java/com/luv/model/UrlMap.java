@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "url_mapping", uniqueConstraints = @UniqueConstraint(columnNames = "shortUrlId"))
-public class UrlMapping {
+@Table(name = "url_mapping", uniqueConstraints = @UniqueConstraint(columnNames = "urlMappingId"))
+public class UrlMap {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String urlMappingId;
